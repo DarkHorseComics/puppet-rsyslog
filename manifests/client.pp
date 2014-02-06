@@ -12,6 +12,7 @@
 # [*log_auth_local*]
 # [*custom_config*]
 # [*custom_params*]
+# [*filter*] - string or array of strings
 # [*server*]
 # [*port*]
 # [*ssl_ca*]
@@ -31,6 +32,7 @@ class rsyslog::client (
   $log_auth_local = false,
   $custom_config  = undef,
   $custom_params  = undef,
+  $filter         = '*.*',
   $server         = 'log',
   $port           = '514',
   $ssl_ca         = undef,
