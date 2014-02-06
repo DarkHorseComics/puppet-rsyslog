@@ -23,9 +23,8 @@ $ActionSendStreamDriverAuthMode anon
 # Log to remote syslog server using <%= scope.lookupvar('rsyslog::client::remote_type') %>
 <%- protocol = scope.lookupvar('rsyslog::client::remote_type') == 'tcp' ? '@@' : '@' -%>
   <%- if scope.lookupvar('rsyslog::client::filter').is_a?(Array) -%>
-    <%- scope.lookupvar('rsyslog::client::filter').each do |filter| -%>
-      <%= "#{filter} #{protocol}" + scope.lookupvar('rsyslog::client::server') -%>:<%= scope.lookupvar('rsyslog::client::port') -%>;RSYSLOG_ForwardFormat
-    <%- end %>
+    <%- filters = scope.lookupvar('rsyslog::client::filter').join(';') -%>
+    <%= "#{filters} #{protocol}" + scope.lookupvar('rsyslog::client::server') -%>:<%= scope.lookupvar('rsyslog::client::port') -%>;RSYSLOG_ForwardFormat
   <%- else %>
     <%= scope.lookupvar('rsyslog::client::filter') + " #{protocol}" + scope.lookupvar('rsyslog::client::server') -%>:<%= scope.lookupvar('rsyslog::client::port') -%>;RSYSLOG_ForwardFormat
   <%- end -%>
